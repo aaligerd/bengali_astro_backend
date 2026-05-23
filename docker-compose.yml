@@ -1,0 +1,20 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    # If your Postgres is running on the VPS host (localhost) and you want to connect using localhost:
+    # network_mode: "host"
+    restart: always
+    networks:
+      - astro-net
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  astro-net:
+    driver: bridge
